@@ -9,7 +9,6 @@ const validarJWT = (req, res, next) =>{
             ok: false,
             msg: "No hay token en la petición"
         });
-        
     }
     try {
         
