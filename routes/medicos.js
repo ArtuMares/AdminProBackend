@@ -42,7 +42,10 @@ const router = Router();
     //* Actualizar medicos
     router.put("/:id",
         [   
-            
+            validarJWT,
+            check("nombre", "El nombre del médico es obligatotio").notEmpty(),
+            check("hospital", "El hospital id debe de ser válido").isMongoId(),
+            validarCampos
         ],
         actualizarMedico);
 //!
@@ -51,6 +54,9 @@ const router = Router();
 
     //* Eliminar medico
     router.delete("/:id",
+    [
+        validarJWT
+    ],
     borrarMedico);
 
     module.exports = router;
