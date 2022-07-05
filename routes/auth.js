@@ -30,7 +30,7 @@ router.post("/google",
     ]
     , googleSignIn);
 
-//*Login con google
+//*renovar roken
 router.get("/renew",
 [
     validarJWT
