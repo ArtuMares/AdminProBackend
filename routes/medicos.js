@@ -7,6 +7,7 @@ const { Router } = require("express");
 const { check } = require("express-validator")
 const { validarCampos } = require("../middlewares/validar-campos")
 const { getMedicos,
+    getMedicoById,
     crearMedico,
     actualizarMedico,
     borrarMedico} = require("../controllers/medicos");
@@ -20,7 +21,13 @@ const router = Router();
 //!
 
     //*Get todos los medicos
-    router.get("/",  getMedicos);
+    router.get("/", validarJWT,  getMedicos);
+
+    //*Get un sólo médico
+    router.get("/:id",
+        validarJWT
+    ,
+    getMedicoById);
 
 //!
 //*Peticiones POST
@@ -54,9 +61,9 @@ const router = Router();
 
     //* Eliminar medico
     router.delete("/:id",
-    [
         validarJWT
-    ],
+    ,
     borrarMedico);
+
 
     module.exports = router;

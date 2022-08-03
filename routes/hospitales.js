@@ -21,7 +21,7 @@ const router = Router();
 //!
 
     //*Get todos los hospitales
-    router.get("/",  getHospitales);
+    router.get("/", validarJWT,  getHospitales);
 
 //!
 //*Peticiones POST

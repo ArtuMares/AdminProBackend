@@ -2,7 +2,7 @@
 const { response } = require("express");
 const Usuario = require("../models/usuario");
 const bcrypt = require("bcryptjs");
-const {generarJWT} = require("../helpers/JWT")
+const {generarJWT} = require("../helpers/JWT");
 
 const getUsuarios = async (req, res) => {
 
@@ -79,6 +79,7 @@ const actualizarUsuario = async (req, res = response) => {
                 msg: "No existe un usuario con ese id"
             });
         }
+
         //*Actualizar el usuario
         const { password, google, email, ...campos } = req.body;
 
@@ -88,11 +89,17 @@ const actualizarUsuario = async (req, res = response) => {
                 return res.status(400).json({
                     ok: false,
                     msg: "Ya existe un usuario con ese email"
-                })
+                });
             }
         }
-
-        campos.email = email;
+        if(!usuarioDB.google){ 
+            campos.email = email;
+        }else if(usuarioDB.email !== email){
+            return res.status(400).json({
+                ok: false,
+                msg: "Un usuario de google no puede cambiar su correo"
+            });
+        }
 
         const usuarioActualizado = await Usuario.findByIdAndUpdate(uid, campos, { new: true });
 

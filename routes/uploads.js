@@ -29,6 +29,6 @@ router.use(expressFileUpload({
 //!
 
     //*get imagen 
-    router.get("/:tipo/:img", validarJWT, getImg);
+    router.get("/:tipo/:img", getImg);
 
     module.exports = router;
