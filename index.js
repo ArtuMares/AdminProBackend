@@ -3,7 +3,7 @@ require("dotenv").config();
 const express = require("express");
 const cors = require('cors')
 const {dbconnection} = require("./database/config");
-
+const path = require("path")
 
 //MEAN_USER
 //WnxTRIdYEdynzzRF
@@ -34,6 +34,12 @@ dbconnection();
  app.use("/api/busquedas", require("./routes/busquedas"));
 
  app.use("/api/upload", require("./routes/uploads"));
+
+ //Lo últi
+
+ app.get("*", function(req, res){
+    res.sendFile(path.resolve(__dirname, "public/index.html"));
+ });
 
 app.listen(process.env.PORT, ()=>{
     console.log(`Servidor corriendo en el puerto ${process.env.PORT}`);
